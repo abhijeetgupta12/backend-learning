@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    
+    <form id="form">
+        <label for="name">Name :</label>
+        <input type="text" id="name"></br></br>
+        <label for="email">Email :</label>
+        <input type="text" id="email"></br></br>
+        <label for="password">Password :</label>
+        <input type="text" id="password"></br></br>
+        <button type="button" id="clik" name="check"> Click Me!</button>
+    </form>
+
+    <h1 id="name1"></h1>
+    <h1 id="email1"></h1>
+    <h1 id="password1"></h1> 
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const output = document.getElementById('output');
+        const btn = document.getElementById('clik');
+        btn.addEventListener('click',async (e)=>{
+
+            console.log("Button Clicked");
+            e.preventDefault;
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            
+            const reqFromClient = {name,email,password}
+            console.log('reqFromClient',reqFromClient)
+    
+            const resFromServer = await axios.post('/user',reqFromClient);
+            console.log('resFromServer',resFromServer)
+
+            document.getElementById("name1").innerHTML=resFromServer.data.data.name;
+            document.getElementById("email1").innerHTML=resFromServer.data.data.email;
+            document.getElementById("password1").innerHTML=resFromServer.data.data.password;
+
+                    
+        });
+        
+
+    </script>
+
+</body>
+</html>

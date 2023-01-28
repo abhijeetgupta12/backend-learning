@@ -1,0 +1,17 @@
+JSon Web Token
+
+Backend has a secret key
+
+JWT - Header -> Algorithm (dfault HMAC SHA256)
+      Payload -> Unique Id
+      Signature -> Header + Payload + Secret key
+
+
+
+Once the user sends a request for login if the login is success the server sends response 
+with a JWT token which will be saved in the browser,  when the user again sends some request 
+due to stateless property of http he has to login again, to avoid this JWTs are used for verification
+the server asks for the header and paylod from the request and with the help of it's own secret key
+creates a signature and match it with the signature brought from the request if both are same it 
+gives the permission to carry on.
+

@@ -1,0 +1,15 @@
+Points to remember from security point of view:
+
+
+##############################
+while hitting a get request from a browser to obtain data, make sure that only authorised persons get to access the data
+so use cookies(jwt) for checking if the person is admin or logged in or not (create a middleware to check )
+
+##################################
+For loggin function:
+
+1. Check for empty parameters
+2. Send request under try catch block with jwt token
+3. Check check for response
+4. If response is not empty then check if passwords are equal
+5. Register a cookie (for checkin in future if the user has logged in)
