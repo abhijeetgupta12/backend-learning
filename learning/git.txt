@@ -1,0 +1,14 @@
+for new repos:
+
+git init --> adds .git file to the project (if not seen in VS Code got to 
+                file->preference->settings type files.exclude remove .git from list)
+
+git status --> shows list of files to be added (in red) and to be pushed (in green)
+git add .  --> adds all files to git local repo 
+
+git commit -m "Comment" --> adds a remark of progress
+
+git branch -m main --> creates a branch named "main", if you don't run the command
+                        branch is created with default name "master"
+
+git push -u name_of_branch --> adds to git repo                        
