@@ -27,7 +27,8 @@ const userSchema = new mongoose.Schema({
     profilepic:{
         type:String,
         default:'img/default.jpeg'
-    }
+    },
+    resetToken:String
 });
 
 //before save events occur in db
@@ -58,6 +59,21 @@ userSchema.pre('save',async function(){
 
 
 //Naming of your collection(Table) in database and attatching the schema 
+
+userSchema.method.createResetToken = function(){
+    //we need to get a random 32 bit code 
+    //use npm package crypto
+
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    this.resetToken = resetToken;
+    return resetToken;
+}
+
+userSchema.method.resetPasswordHandler = function(password,confirmPassword){
+    this.password=password;
+    this.confirmPass=confirmPassword;
+    this.resetToken=undefined;
+}
 
 const userModel = new mongoose.model('userModel',userSchema);
 

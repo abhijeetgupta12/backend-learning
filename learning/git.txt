@@ -11,4 +11,15 @@ git commit -m "Comment" --> adds a remark of progress
 git branch -m main --> creates a branch named "main", if you don't run the command
                         branch is created with default name "master"
 
-git push -u name_of_branch --> adds to git repo                        
+git push -u name_of_branch --> adds to git repo        
+
+
+
+
+
+for existing:
+
+git status
+git add .
+git commit -m "comment"
+git push

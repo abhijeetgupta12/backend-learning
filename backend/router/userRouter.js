@@ -25,6 +25,13 @@ userRouter
 .route('/update')
 .patch(userCheckMiddleware,userUpdate);
 
+userRouter
+.route('/forgotpassword')
+.post(forgotpassword);
+
+userRouter
+.route('/resetpassword/:token')
+.post(resetpassword);
 
 
 

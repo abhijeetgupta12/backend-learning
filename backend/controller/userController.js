@@ -147,7 +147,61 @@ const deleteAll = async (req,res)=>{
     }
 }
 
+const forgotpassword = async (req,res)=>{
 
-module.exports={userSignup,userLogin,userProfile,userUpdate,userAll,deleteAll};
+    const {email} = req.body;
+    try{
+        const user = userModel.findOne({email:email});
+        if(user){
+            //createResetToken is used to create new token and save in db
+            const resetToken = user.createResetToken();//instance method related to schemas
+            //resetpasswordLink would be like http://www.abc.com/resetpassword/token
+            let resetpasswordLink = `${req.protocol}://${req.get('host')}/resetpassword/${resetToken}}`;
+            //send email to user via nodemailer
+
+        }else{
+            res.json({
+                message:"email not found"
+            });
+        }
+    }
+    catch(err){
+        res.status(500).json({
+            message:err.message
+        })
+    }
+}
+
+const resetpassword = async (req,res)=>{
+    const token = req.params.token;
+    const {password,confirmPassword} = req.body;
+    try{
+        const user = await userModel.findOne({resetToken:token});
+        //resetPasswordHandler will update user password in db
+
+        if(user){
+            user.resetPasswordHandler(password,confirmPassword);
+            await user.save();
+            res.json({
+                message:"Password Updated please login again ..."
+            })
+
+        }else{
+            res.json({
+                message:"User not found"
+            })
+        }
+        
+    }catch(err){
+        res.json({
+            message:err.message
+        })
+    }
+    
+}
+
+
+module.exports={userSignup,userLogin,userProfile,userUpdate,
+    userAll,deleteAll,forgotpassword,resetpassword};
 
 
