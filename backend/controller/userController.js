@@ -123,29 +123,6 @@ const userAll = async (req,res) =>{
     
 }
 
-const deleteAll = async (req,res)=>{
-    try{
-
-        const data = await userModel.deleteMany({});
-        if(data){
-
-            res.json({
-                message:'Data deleted',
-                data:data
-            })
-
-        }else{
-            res.json({
-                message:'No data found to be deleted'
-            })
-        }
-
-    }catch(err){
-        res.json({
-            message:err.message
-        })
-    }
-}
 
 const forgotpassword = async (req,res)=>{
 
@@ -200,8 +177,45 @@ const resetpassword = async (req,res)=>{
     
 }
 
+const deleteAll = async (req,res)=>{
+    try{
+
+        const data = await userModel.deleteMany({});
+        if(data){
+
+            res.json({
+                message:'Data deleted',
+                data:data
+            })
+
+        }else{
+            res.json({
+                message:'No data found to be deleted'
+            })
+        }
+
+    }catch(err){
+        res.json({
+            message:err.message
+        })
+    }
+}
+
+const logout =  (req,res)=>{
+    if(req.cookies.isLoggedIn){
+        res.cookie('isLoggedIn',' ',{maxAge:1});
+        res.json({
+            message:"Logged out successfully"
+        })
+    }else{
+        res.json({
+            message:"Login Required"
+        })
+    }
+    
+}
 
 module.exports={userSignup,userLogin,userProfile,userUpdate,
-    userAll,deleteAll,forgotpassword,resetpassword};
+    userAll,deleteAll,forgotpassword,resetpassword, logout};
 
 

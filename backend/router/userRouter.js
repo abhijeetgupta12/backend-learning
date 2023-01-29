@@ -2,7 +2,7 @@ const express = require('express');
 const userCheckMiddleware = require('./userCheckMiddleware');
 const adminCheckMiddleware = require('./adminCheckMiddleware');
 const {userSignup, userLogin, userProfile, userUpdate,
-    userAll, deleteAll} = require('../controller/userController')
+    userAll, deleteAll, forgotpassword, resetpassword, logout} = require('../controller/userController')
 
 
 
@@ -32,6 +32,10 @@ userRouter
 userRouter
 .route('/resetpassword/:token')
 .post(resetpassword);
+
+userRouter
+.route('/logout')
+.get(logout)
 
 
 
