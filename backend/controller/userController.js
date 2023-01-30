@@ -1,6 +1,7 @@
 const userModel =  require('../models/userModel');
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = require('../secure/secret_key');
+const {SECRET_KEY} = require('../secure/secret_key');
+const {sendMail} = require('../secure/nodemailer')
 
 
 
@@ -8,6 +9,7 @@ const userSignup = async (req,res)=>{
     try{
         const data = await userModel.create(req.body);
         if(data){
+            sendMail("signup",data);
             res.json({message:"Data Added", data:data});
         }
         else{
@@ -135,6 +137,7 @@ const forgotpassword = async (req,res)=>{
             //resetpasswordLink would be like http://www.abc.com/resetpassword/token
             let resetpasswordLink = `${req.protocol}://${req.get('host')}/resetpassword/${resetToken}}`;
             //send email to user via nodemailer
+            sendMail("resetpassword",{email:email,resetpasswordLink:resetpasswordLink})
 
         }else{
             res.json({
@@ -180,7 +183,7 @@ const resetpassword = async (req,res)=>{
 const deleteAll = async (req,res)=>{
     try{
 
-        const data = await userModel.deleteMany({});
+        const data = await userModel.deleteMany({role:"user"});
         if(data){
 
             res.json({

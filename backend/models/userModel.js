@@ -31,12 +31,9 @@ const userSchema = new mongoose.Schema({
     resetToken:String
 });
 
+
 //before save events occur in db
-
-
-
 userSchema.pre('save',async function(){
-    console.log('before saving in database',this);
     this.confirmPass = undefined; 
     //we dont want to save confirmPass so before saving to db we clear it,
     //setting things to undefined wont allow it to save on db
@@ -50,15 +47,12 @@ userSchema.pre('save',async function(){
 });
 
 
-
 //after save events occur in db
+userSchema.post('save',function(doc){
+    console.log('Data Saved');
+})
 
-// userSchema.post('save',function(doc){
-//     console.log('after saving in database',doc);
-// })
 
-
-//Naming of your collection(Table) in database and attatching the schema 
 
 userSchema.method.createResetToken = function(){
     //we need to get a random 32 bit code 
@@ -75,6 +69,7 @@ userSchema.method.resetPasswordHandler = function(password,confirmPassword){
     this.resetToken=undefined;
 }
 
+//Naming of your collection(Table) in database and attatching the schema 
 const userModel = new mongoose.model('userModel',userSchema);
 
 module.exports = userModel;

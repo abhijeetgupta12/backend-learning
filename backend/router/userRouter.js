@@ -2,7 +2,9 @@ const express = require('express');
 const userCheckMiddleware = require('./userCheckMiddleware');
 const adminCheckMiddleware = require('./adminCheckMiddleware');
 const {userSignup, userLogin, userProfile, userUpdate,
-    userAll, deleteAll, forgotpassword, resetpassword, logout} = require('../controller/userController')
+    userAll, deleteAll, forgotpassword, resetpassword, logout} = require('../controller/userController');
+
+const {plans} = require('../controller/planController');    
 
 
 
@@ -46,6 +48,11 @@ userRouter
 userRouter
 .route('/deleteAll')
 .delete(userCheckMiddleware,adminCheckMiddleware,deleteAll)
+
+
+userRouter
+.route('/plans')
+.post(plans)
 
 
 
